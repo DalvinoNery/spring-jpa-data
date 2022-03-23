@@ -4,28 +4,28 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "cargos")
+@Table(name = "unidades")
 @Getter
 @Setter
-public class Cargo {
+public class Unidade {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String descricao;
-    @OneToMany(mappedBy = "cargo")
-    private List<Funcionario> funcionarios = new ArrayList<>();
-
+    private String endereco;
+    @ManyToMany(mappedBy = "unidades", fetch = FetchType.EAGER)
+    private List<Funcionario> funcionarios;
 
     @Override
     public String toString() {
-        return "Cargo{" +
+        return "Unidade{" +
                 "id=" + id +
                 ", descricao='" + descricao + '\'' +
+                ", endereco='" + endereco + '\'' +
                 '}';
     }
 }

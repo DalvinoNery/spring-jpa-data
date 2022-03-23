@@ -5,6 +5,10 @@ import com.dalvino.spring.orm.Unidade;
 import com.dalvino.spring.repository.CargoRepository;
 import com.dalvino.spring.repository.FuncionarioRepository;
 import com.dalvino.spring.repository.UnidadeRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -49,7 +53,7 @@ public class CrudFuncionarioService {
                //     atualizar(scanner);
                     break;
                 case 3:
-                    listar();
+                    listar(scanner);
                     break;
                 case 4:
               //      deletar(scanner);
@@ -130,9 +134,15 @@ public class CrudFuncionarioService {
 //        System.out.println("Unidade atualizada com sucesso!!!");
 //    }
 
-    private void listar(){
-        Iterable<Funcionario> unidades = funcionarioRepository.findAll();
-        unidades.forEach(funcionario -> {
+    private void listar(Scanner scanner){
+        System.out.println("Informe a página que deseja visualizar:");
+        Integer pagina = scanner.nextInt();
+        Pageable pageable = PageRequest.of(pagina, 4, Sort.by(Sort.Direction.ASC, "salario"));
+        Page<Funcionario> funcionarios = funcionarioRepository.findAll(pageable);
+
+        System.out.println(funcionarios.getNumber()+" de "+ funcionarios + " página(s)");
+        System.out.println("Total de funcionários: "+funcionarios.getTotalElements());
+        funcionarios.forEach(funcionario -> {
             System.out.println(funcionario);
         });
     }

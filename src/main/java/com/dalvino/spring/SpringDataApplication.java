@@ -1,10 +1,7 @@
 package com.dalvino.spring;
 
 
-import com.dalvino.spring.service.CrudCargoService;
-import com.dalvino.spring.service.CrudFuncionarioService;
-import com.dalvino.spring.service.CrudUnidadeService;
-import com.dalvino.spring.service.RelatorioService;
+import com.dalvino.spring.service.*;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -22,14 +19,20 @@ public class SpringDataApplication implements CommandLineRunner {
 	private final CrudUnidadeService unidadeService;
 	private final CrudFuncionarioService funcionarioService;
 	private final RelatorioService relatorioService;
+	private final RelatorioFuncionarioDinamico relatorioFuncionarioDinamico;
 	private Boolean system = true;
 
-	public SpringDataApplication(CrudCargoService cargoService, CrudUnidadeService unidadeService, CrudFuncionarioService funcionarioService, RelatorioService relatorioService){
+	public SpringDataApplication(CrudCargoService cargoService,
+								 CrudUnidadeService unidadeService,
+								 CrudFuncionarioService funcionarioService,
+								 RelatorioService relatorioService,
+								 RelatorioFuncionarioDinamico relatorioFuncionarioDinamico){
 
 		this.cargoService  = cargoService;
 		this.unidadeService = unidadeService;
 		this.funcionarioService = funcionarioService;
 		this.relatorioService = relatorioService;
+		this.relatorioFuncionarioDinamico = relatorioFuncionarioDinamico;
 	}
 
 
@@ -47,6 +50,7 @@ public class SpringDataApplication implements CommandLineRunner {
 			System.out.println("2 - Unidade");
 			System.out.println("3 - Funcionarios");
 			System.out.println("4 - Relatorios");
+			System.out.println("5 - Relatorio Dinâmico");
 
 			int action = scanner.nextInt();
 			switch (action){
@@ -61,6 +65,9 @@ public class SpringDataApplication implements CommandLineRunner {
 					break;
 				case 4:
 					relatorioService.inicial(scanner);
+					break;
+				case 5:
+					relatorioFuncionarioDinamico.inicial(scanner);
 					break;
 				default:
 					system = false;

@@ -2,6 +2,7 @@ package com.dalvino.spring.repository;
 
 
 import com.dalvino.spring.orm.Funcionario;
+import com.dalvino.spring.orm.FuncionarioProjecao;
 import com.dalvino.spring.orm.Unidade;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
@@ -20,5 +21,9 @@ public interface FuncionarioRepository extends PagingAndSortingRepository<Funcio
     List<Funcionario> findByNomeSalarioMaiorDataContratacao(String nome, Double salario, LocalDate dataContratacao);
 
     @Query(value = "SELECT * FROM funcionarios WHERE data_contratacao >= :data", nativeQuery = true)
-    List<Funcionario> fundDataContratacaoMaior(LocalDate data);
+    List<Funcionario> findDataContratacaoMaior(LocalDate data);
+
+    @Query(value = "SELECT id, nome, salario FROM funcionarios", nativeQuery = true)
+    List<FuncionarioProjecao> findFuncionarioSalario();
 }
+

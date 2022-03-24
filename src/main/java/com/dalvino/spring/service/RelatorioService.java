@@ -80,7 +80,7 @@ public class RelatorioService {
         String data = scanner.next();
         LocalDate localDate = LocalDate.parse(data, formatter);
 
-        List<Funcionario> funcionarioList = funcionarioRepository.fundDataContratacaoMaior(localDate);
+        List<Funcionario> funcionarioList = funcionarioRepository.findDataContratacaoMaior(localDate);
 
         funcionarioList.forEach(System.out::println);
 

@@ -1,6 +1,7 @@
 package com.dalvino.spring.service;
 
 import com.dalvino.spring.orm.Funcionario;
+import com.dalvino.spring.orm.FuncionarioProjecao;
 import com.dalvino.spring.orm.Unidade;
 import com.dalvino.spring.repository.CargoRepository;
 import com.dalvino.spring.repository.FuncionarioRepository;
@@ -57,6 +58,9 @@ public class CrudFuncionarioService {
                     break;
                 case 4:
               //      deletar(scanner);
+                    break;
+                case 5:
+                     funcionarioSalario();
                     break;
                 default:
                     system = false;
@@ -145,6 +149,11 @@ public class CrudFuncionarioService {
         funcionarios.forEach(funcionario -> {
             System.out.println(funcionario);
         });
+    }
+
+    private void funcionarioSalario(){
+        List<FuncionarioProjecao> list = funcionarioRepository.findFuncionarioSalario();
+        list.forEach(f -> System.out.println("Funcionario id: "+ f.getId()+" | nome: "+f.getNome()+" | salario: "+ f.getSalario()));
     }
 
 //    private void deletar(Scanner scanner){
